@@ -1,0 +1,17 @@
+{
+  "name": "medipredict-ai",
+  "version": "1.0.0",
+  "description": "Disease Prediction System using Machine Learning with Image-Based Symptom Detection",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "disease-prediction",
+    "flask",
+    "nodejs",
+    "machine-learning"
+  ],
+  "author": "",
+  "license": "MIT"
+}
