@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}Symptom Analysis — MediPredict AI{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <!-- Page Header -->
+                <div class="page-header-pro">
+                    <div class="page-icon-pro navy">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h2 class="section-title">Symptom Analysis</h2>
+                    <p class="text-muted mt-4">Select your symptoms below for an AI-powered health assessment</p>
+                </div>
+
+                <!-- Symptom Form -->
+                <div class="form-card-pro mb-4">
+                    <form id="symptomForm">
+                        <label class="form-label-pro mb-3">
+                            <i class="fas fa-list-check"></i> Select Your Symptoms
+                        </label>
+                        <div class="input-group mb-3 search-symptom-box">
+                            <span class="input-group-text bg-transparent border-end-0 text-muted" style="border-color: var(--border-color);">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" id="symptomSearch" class="form-control border-start-0" placeholder="Search symptoms (e.g. cough, fever, rash)..." style="border-color: var(--border-color); background-color: var(--bg-surface); color: var(--text-primary); font-size: 0.9rem; padding: 0.65rem 0.75rem; box-shadow: none;">
+                        </div>
+
+                        <div class="symptom-grid mb-4">
+                            {% for s in symptoms %}
+                            <div class="form-check symptom-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="symptoms" value="{{ s }}" id="sym_{{ s }}">
+                                <label class="form-check-label" for="sym_{{ s }}">
+                                    {{ s | replace('_', ' ') | title }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn-elegant btn-navy w-100" id="symptomBtn">
+                            <i class="fas fa-magnifying-glass-chart"></i> Analyze Symptoms
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="symptomLoading" class="text-center d-none my-5">
+                    <div class="spinner-border" style="color: var(--primary-navy);" role="status"></div>
+                    <p class="loading-text">Analyzing symptoms...</p>
+                </div>
+
+                <!-- Result Card -->
+                <div id="symptomResult" class="d-none">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-clipboard-check"></i>
+                            <h5>Analysis Results</h5>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <div class="stat-box primary">
+                                    <div class="stat-label">Predicted Condition</div>
+                                    <div class="stat-value" id="resPrediction">—</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="stat-box success">
+                                    <div class="stat-label">Confidence Level</div>
+                                    <div class="stat-value" id="resConfidence">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confidence Chart -->
+                        <div class="mb-4">
+                            <canvas id="confidenceChart" height="160"></canvas>
+                        </div>
+
+                        <!-- Symptoms used -->
+                        <div class="mb-4">
+                            <h6 class="mb-2" style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Symptoms Analyzed
+                            </h6>
+                            <div id="resSymptoms"></div>
+                        </div>
+
+                        <!-- Description -->
+                        <div id="resDescBox" class="alert-professional info d-none mb-3">
+                            <strong><i class="fas fa-book-medical me-2"></i>About This Condition:</strong>
+                            <p class="mb-0 mt-2" id="resDescription"></p>
+                        </div>
+
+                        <!-- Precautions -->
+                        <div id="resPrecBox" class="alert-professional warning d-none mb-3">
+                            <strong><i class="fas fa-shield-halved me-2"></i>Recommended Precautions:</strong>
+                            <ul class="mb-0 mt-2" id="resPrecautions"></ul>
+                        </div>
+
+                        <!-- AI Cure Assistant Section -->
+                        <div id="resCureAssistantBox" class="d-none mb-3">
+                            <div class="cure-assistant-card">
+                                <div class="cure-assistant-header">
+                                    <i class="fas fa-robot"></i>
+                                    <h6>AI Cure Assistant</h6>
+                                </div>
+                                
+                                <!-- Cure Advice -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-lightbulb text-warning"></i> Treatment Advice
+                                    </h6>
+                                    <ul class="cure-advice-list" id="resCureAdvice"></ul>
+                                </div>
+                                
+                                <!-- Product Recommendations -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-shopping-cart text-primary"></i> Recommended Products
+                                    </h6>
+                                    <div class="product-grid" id="resProducts"></div>
+                                </div>
+                                
+                                <!-- When to See Doctor -->
+                                <div class="cure-section doctor-alert">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-user-doctor text-danger"></i> When to See a Doctor
+                                    </h6>
+                                    <p class="mb-0" id="resWhenToSeeDoctor"></p>
+                                </div>
+                                
+                                <!-- AI Disclaimer -->
+                                <div class="ai-disclaimer" id="resAiNote">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div id="resNote" class="alert-professional info d-none"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

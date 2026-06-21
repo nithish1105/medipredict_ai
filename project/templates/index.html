@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}MediPredict AI — Home{% endblock %}
+
+{% block content %}
+<!-- ─── Hero Section — Professional ───────────────────────────────── -->
+<section class="hero-professional">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7 hero-content">
+                <span class="hero-badge">
+                    <i class="fas fa-robot"></i> AI-Powered Healthcare
+                </span>
+                <h1 class="hero-title">
+                    Intelligent <span class="highlight">Disease</span><br>
+                    Prediction System
+                </h1>
+                <p class="hero-subtitle">
+                    Harness the power of advanced machine learning and medical image analysis 
+                    to receive accurate, data-driven health insights in moments.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/symptoms" class="btn-elegant btn-gold">
+                        <i class="fas fa-stethoscope"></i> Analyze Symptoms
+                    </a>
+                    <a href="/image" class="btn-elegant btn-outline-light-elegant">
+                        <i class="fas fa-x-ray"></i> Upload Medical Image
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block hero-illustration-box">
+                <i class="fas fa-dna hero-icon"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Features — Professional ───────────────────────────────────── -->
+<section class="features-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">How It Works</h2>
+            <p class="text-muted mt-4">Three sophisticated methods for comprehensive health analysis</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Symptom Card -->
+            <div class="col-md-4">
+                <div class="feature-card-pro">
+                    <div class="feature-icon-box navy">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h5>Symptom Analysis</h5>
+                    <p>
+                        Select symptoms from our comprehensive medical checklist. 
+                        Advanced algorithms analyze patterns to predict probable conditions.
+                    </p>
+                    <a href="/symptoms" class="feature-link">
+                        Start Analysis <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Image Card -->
+            <div class="col-md-4">
+                <div class="feature-card-pro">
+                    <div class="feature-icon-box teal">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h5>Image Detection</h5>
+                    <p>
+                        Upload medical images — skin conditions, X-rays, or eye scans. 
+                        Our deep learning models identify visible symptoms accurately.
+                    </p>
+                    <a href="/image" class="feature-link">
+                        Upload Image <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Combined Card -->
+            <div class="col-md-4">
+                <div class="feature-card-pro">
+                    <div class="feature-icon-box gold">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h5>Combined Analysis</h5>
+                    <p>
+                        Provide both symptoms and images for multi-modal analysis. 
+                        Our system fuses data sources for maximum diagnostic accuracy.
+                    </p>
+                    <a href="/combined" class="feature-link">
+                        Try Combined <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Supported Images — Professional ───────────────────────────── -->
+<section class="supported-images-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Supported Medical Images</h2>
+            <p class="text-muted mt-4">Our AI can analyze various types of medical imagery</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% set image_types = [
+                ("fa-hand-dots",   "Skin Conditions",  "Rash, acne, lesions"),
+                ("fa-eye",         "Eye Examinations", "Conjunctivitis, redness"),
+                ("fa-teeth-open",  "Tongue Analysis",  "Coating, ulcers"),
+                ("fa-x-ray",       "X-Ray Scans",      "Chest, bone fractures"),
+                ("fa-band-aid",    "Wound Assessment", "Infection, healing"),
+                ("fa-heart-pulse", "General Imaging",  "Medical photographs"),
+            ] %}
+            {% for icon, title, desc in image_types %}
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="image-type-card">
+                    <i class="fas {{ icon }}"></i>
+                    <h6>{{ title }}</h6>
+                    <small>{{ desc }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ─── CTA — Professional ────────────────────────────────────────── -->
+<section class="cta-section">
+    <div class="container position-relative">
+        <h3 class="cta-title">Ready to Get Started?</h3>
+        <p class="cta-text">
+            Experience the future of healthcare with our intelligent diagnostic platform.
+        </p>
+        <a href="/combined" class="btn-elegant btn-gold">
+            <i class="fas fa-rocket"></i> Launch Combined Predictor
+        </a>
+    </div>
+</section>
+{% endblock %}

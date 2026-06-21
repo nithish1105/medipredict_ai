@@ -1,0 +1,40 @@
+﻿  6000/15011 images processed (407s)
+  6500/15011 images processed (437s)
+  7000/15011 images processed (468s)
+  7500/15011 images processed (499s)
+  8000/15011 images processed (530s)
+  8500/15011 images processed (560s)
+  9000/15011 images processed (590s)
+  9500/15011 images processed (624s)
+  10000/15011 images processed (654s)
+  10500/15011 images processed (685s)
+  11000/15011 images processed (716s)
+  11500/15011 images processed (749s)
+  12000/15011 images processed (779s)
+  12500/15011 images processed (810s)
+  13000/15011 images processed (841s)
+  13500/15011 images processed (872s)
+  14000/15011 images processed (907s)
+  14500/15011 images processed (938s)
+  15000/15011 images processed (970s)
+  Train features: torch.Size([45033, 192, 7, 7]) (971s)
+  Memory: 1695 MB
+
+Extracting test features (3753 images, no augmentation)...
+  Test features: torch.Size([3753, 192, 7, 7]) (75s)
+  Freed image memory
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+Phase 3: Fine-tuning blocks 7-8 + classifier
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Trainable parameters: 1,968,460 / 1,968,460
+Epochs: 35, LR: 0.0003, Batch: 64
+Patience: 12
+  Epoch   1  loss=2.0567  train=49.5%  test=52.3%  lr=0.000293  (126s)
+  Epoch   2  loss=1.5849  train=66.9%  test=57.7%  lr=0.000271  (129s)
+  Epoch   3  loss=1.3682  train=75.5%  test=59.1%  lr=0.000238  (133s)
+  Epoch   4  loss=1.2149  train=81.7%  test=60.5%  lr=0.000196  (141s)
+  Epoch   5  loss=1.1218  train=85.5%  test=61.8%  lr=0.000150  (140s)
+  Epoch   6  loss=1.0531  train=88.4%  test=63.4%  lr=0.000104  (135s)
+  Epoch   7  loss=1.0069  train=90.1%  test=64.1%  lr=0.000062  (136s)

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Medical Imaging — MediPredict AI{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <!-- Page Header -->
+                <div class="page-header-pro">
+                    <div class="page-icon-pro teal">
+                        <i class="fas fa-x-ray"></i>
+                    </div>
+                    <h2 class="section-title">Medical Image Analysis</h2>
+                    <p class="text-muted mt-4">Upload medical imagery for AI-powered condition detection</p>
+                </div>
+
+                <!-- Upload Form -->
+                <div class="form-card-pro mb-4">
+                    <form id="imageForm" enctype="multipart/form-data">
+
+                        <!-- Drag & Drop Area -->
+                        <div class="upload-area" id="dropZone">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-arrow-up"></i>
+                            </div>
+                            <h5 style="color: var(--text-dark); margin-bottom: 0.5rem;">Drop your image here</h5>
+                            <p class="text-muted mb-3">or click to browse (JPG / PNG, max 16 MB)</p>
+                            <input type="file" name="image" id="imageInput" accept=".jpg,.jpeg,.png"
+                                   class="d-none" required>
+                            <button type="button" class="btn-elegant btn-navy" style="padding: 10px 24px;"
+                                    onclick="document.getElementById('imageInput').click()">
+                                <i class="fas fa-folder-open"></i> Select File
+                            </button>
+                        </div>
+
+                        <!-- Image Preview -->
+                        <div id="imagePreviewBox" class="text-center d-none my-4">
+                            <img id="imagePreview" class="img-fluid rounded-3 shadow" style="max-height:320px; border: 4px solid var(--border-light);" alt="preview">
+                            <p class="text-muted mt-2" style="font-size: 0.9rem;" id="imageFileName"></p>
+                        </div>
+
+                        <!-- Supported types -->
+                        <div class="d-flex flex-wrap gap-2 my-4 justify-content-center">
+                            <span class="image-type-badge"><i class="fas fa-hand-dots" style="color: var(--primary-navy);"></i> Skin</span>
+                            <span class="image-type-badge"><i class="fas fa-eye" style="color: var(--medical-teal);"></i> Eye</span>
+                            <span class="image-type-badge"><i class="fas fa-teeth-open" style="color: var(--accent-bronze);"></i> Tongue</span>
+                            <span class="image-type-badge"><i class="fas fa-x-ray" style="color: var(--primary-navy);"></i> X-Ray</span>
+                            <span class="image-type-badge"><i class="fas fa-band-aid" style="color: var(--medical-green);"></i> Wound</span>
+                        </div>
+
+                        <button type="submit" class="btn-elegant btn-teal w-100" id="imageBtn" disabled>
+                            <i class="fas fa-microscope"></i> Analyze Image
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Loading -->
+                <div id="imageLoading" class="text-center d-none my-5">
+                    <div class="spinner-border" style="color: var(--medical-teal);" role="status"></div>
+                    <p class="loading-text">Analyzing medical image...</p>
+                </div>
+
+                <!-- Result -->
+                <div id="imageResult" class="d-none">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-microscope"></i>
+                            <h5>Analysis Results</h5>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-4">
+                                <div class="stat-box primary">
+                                    <div class="stat-label">Detected Symptom</div>
+                                    <div class="stat-value" id="imgDetected">—</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="stat-box gold">
+                                    <div class="stat-label">Predicted Condition</div>
+                                    <div class="stat-value" id="imgPrediction">—</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="stat-box success">
+                                    <div class="stat-label">Confidence Level</div>
+                                    <div class="stat-value" id="imgConfidence">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded image recap -->
+                        <div class="text-center mb-4">
+                            <img id="imgResultPreview" class="img-fluid rounded-3 shadow" style="max-height:280px; border: 4px solid var(--border-light);" alt="uploaded">
+                        </div>
+
+                        <!-- AI Cure Assistant Section -->
+                        <div id="imgCureAssistantBox" class="d-none mb-3">
+                            <div class="cure-assistant-card">
+                                <div class="cure-assistant-header">
+                                    <i class="fas fa-robot"></i>
+                                    <h6>AI Cure Assistant</h6>
+                                </div>
+                                
+                                <!-- Cure Advice -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-lightbulb text-warning"></i> Treatment Advice
+                                    </h6>
+                                    <ul class="cure-advice-list" id="imgCureAdvice"></ul>
+                                </div>
+                                
+                                <!-- Product Recommendations -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-shopping-cart text-primary"></i> Recommended Products
+                                    </h6>
+                                    <div class="product-grid" id="imgProducts"></div>
+                                </div>
+                                
+                                <!-- When to See Doctor -->
+                                <div class="cure-section doctor-alert">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-user-doctor text-danger"></i> When to See a Doctor
+                                    </h6>
+                                    <p class="mb-0" id="imgWhenToSeeDoctor"></p>
+                                </div>
+                                
+                                <!-- AI Disclaimer -->
+                                <div class="ai-disclaimer" id="imgAiNote">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="imgNote" class="alert-professional info d-none"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

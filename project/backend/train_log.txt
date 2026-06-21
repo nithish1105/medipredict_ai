@@ -1,0 +1,18 @@
+﻿============================================================
+  FAST IMAGE MODEL TRAINING
+============================================================
+python : Traceback (most recent call last):
+At line:1 char:30
++ cd f:\hello\project\backend; python train_fast.py 2>&1 | Out-File tra ...
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "F:\hello\project\backend\train_fast.py", line 26, in <module>
+    X = data["features"]
+        ~~~~^^^^^^^^^^^^
+  File "C:\Users\malas\AppData\Local\Programs\Python\Python314\Lib\site-package
+s\numpy\lib\_npyio_impl.py", line 243, in __getitem__
+    raise KeyError(f"{key} is not a file in the archive") from None
+KeyError: 'features is not a file in the archive'

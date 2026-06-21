@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}About — MediPredict AI{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <!-- Page Header -->
+                <div class="page-header-pro">
+                    <div class="page-icon-pro navy">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h2 class="section-title">About MediPredict AI</h2>
+                    <p class="text-muted mt-4">Learn about our AI-powered disease prediction system</p>
+                </div>
+
+                <!-- Problem Statement -->
+                <div class="form-card-pro mb-4">
+                    <h5 style="color: var(--text-dark); margin-bottom: 1rem;">
+                        <i class="fas fa-bullseye me-2" style="color: var(--accent-gold);"></i>Problem Statement
+                    </h5>
+                    <p style="color: var(--text-body); line-height: 1.8; margin-bottom: 0;">
+                        Early and accurate disease detection is critical for effective treatment.
+                        Many patients, especially in rural or under-served areas, lack immediate
+                        access to specialist doctors. This project aims to provide a
+                        <strong>preliminary AI-assisted diagnosis</strong> by analyzing user-reported
+                        symptoms <em>and</em> medical images (skin conditions, eye infections,
+                        tongue abnormalities, X-rays, and wounds). The system is designed as a
+                        decision-support tool — <strong>not</strong> a replacement for professional
+                        medical consultation.
+                    </p>
+                </div>
+
+                <!-- Technologies -->
+                <div class="form-card-pro mb-4">
+                    <h5 style="color: var(--text-dark); margin-bottom: 1.5rem;">
+                        <i class="fas fa-microchip me-2" style="color: var(--primary-navy);"></i>Technologies Used
+                    </h5>
+                    <div class="row g-4">
+                        {% set techs = [
+                            ("fa-brands fa-python",   "Python 3.10+",         "Core language"),
+                            ("fa-flask",              "Flask",                 "Web framework / REST API"),
+                            ("fa-brain",              "scikit-learn",          "Random Forest classifier"),
+                            ("fa-network-wired",      "PyTorch",              "Deep learning image models"),
+                            ("fa-brands fa-html5",    "HTML / CSS / JS",      "Responsive frontend"),
+                            ("fa-brands fa-bootstrap","Bootstrap 5",          "UI components & grid"),
+                            ("fa-chart-pie",          "Chart.js",             "Confidence visualization"),
+                            ("fa-database",           "Pillow / NumPy / Pandas","Data processing"),
+                        ] %}
+                        {% for icon, name, desc in techs %}
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(26,54,93,.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas {{ icon }}" style="color: var(--primary-navy);"></i>
+                                </div>
+                                <div>
+                                    <span style="font-weight: 600; color: var(--text-dark);">{{ name }}</span>
+                                    <br><small style="color: var(--text-muted);">{{ desc }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- How It Works -->
+                <div class="form-card-pro mb-4">
+                    <h5 style="color: var(--text-dark); margin-bottom: 1rem;">
+                        <i class="fas fa-gears me-2" style="color: var(--medical-teal);"></i>How It Works
+                    </h5>
+                    <ol style="color: var(--text-body); line-height: 1.9; padding-left: 1.25rem; margin-bottom: 0;">
+                        <li class="mb-3">
+                            <strong style="color: var(--text-dark);">Symptom Prediction:</strong> The user selects symptoms from a checklist.
+                            A <em>Random Forest</em> model (trained on 1,000 synthetic samples across 20 diseases)
+                            outputs the top-3 most probable diseases with confidence scores.
+                        </li>
+                        <li class="mb-3">
+                            <strong style="color: var(--text-dark);">Image Detection:</strong> The user uploads a JPG/PNG medical image.
+                            A deep learning model processes the image (resize → 224×224, normalize) and classifies it into one of 10
+                            categories with high accuracy.
+                        </li>
+                        <li>
+                            <strong style="color: var(--text-dark);">Combined Analysis:</strong> Both outputs are fused with a weighted scoring
+                            algorithm (60% symptom, 40% image) to produce the final prediction.
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Accuracy Comparison -->
+                <div class="form-card-pro mb-4">
+                    <h5 style="color: var(--text-dark); margin-bottom: 1rem;">
+                        <i class="fas fa-chart-bar me-2" style="color: var(--accent-bronze);"></i>Accuracy Comparison
+                    </h5>
+                    <canvas id="accuracyChart" height="180"></canvas>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="form-card-pro" style="border-left: 4px solid #dc3545;">
+                    <h5 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-triangle-exclamation me-2"></i>Important Disclaimer
+                    </h5>
+                    <p style="color: var(--text-body); line-height: 1.8; margin-bottom: 0;">
+                        This application is an <strong>educational prototype</strong> developed as a
+                        final-year major project. Predictions are based on limited training data and
+                        should <strong>never</strong> be used as a substitute for professional medical
+                        advice, diagnosis, or treatment. Always consult a qualified healthcare
+                        provider for any medical concerns.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('accuracyChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Random Forest\n(Symptoms)', 'Deep Learning\n(Images)', 'Combined'],
+                datasets: [{
+                    label: 'Accuracy %',
+                    data: [88.5, 85.0, 91.2],
+                    backgroundColor: ['#1a365d', '#2c7a7b', '#c9a227'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true, max: 100 } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

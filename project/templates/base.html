@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MediPredict AI{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- App CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ─── Professional Navbar ─────────────────────────────────── -->
+    <nav class="navbar navbar-expand-lg navbar-professional sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="brand-icon"><i class="fas fa-heartbeat"></i></span>
+                MediPredict AI
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home me-1"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/symptoms"><i class="fas fa-stethoscope me-1"></i> Symptoms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/image"><i class="fas fa-x-ray me-1"></i> Imaging</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/combined"><i class="fas fa-layer-group me-1"></i> Combined</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about"><i class="fas fa-info-circle me-1"></i> About</a></li>
+                    <li class="nav-item ms-2">
+                        <button class="dark-mode-btn" id="darkModeToggle" title="Toggle Dark Mode">
+                            <i class="fas fa-moon" id="darkModeIcon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ─── Flash messages ────────────────────────────────────── -->
+    <main class="min-vh-100">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ─── Professional Footer ─────────────────────────────────── -->
+    <footer class="footer-professional">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <i class="fas fa-heartbeat"></i> MediPredict AI
+                    </div>
+                    <p class="footer-text">
+                        Advanced AI-powered disease prediction system utilizing symptom analysis
+                        and medical image classification for accurate health insights.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4 footer-links">
+                    <h6>Quick Links</h6>
+                    <a href="/">Home</a>
+                    <a href="/symptoms">Symptom Check</a>
+                    <a href="/image">Image Analysis</a>
+                    <a href="/combined">Combined</a>
+                </div>
+                <div class="col-lg-2 col-md-4 footer-links">
+                    <h6>Resources</h6>
+                    <a href="/about">About Us</a>
+                    <a href="#">Documentation</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-lg-4 col-md-4 footer-links">
+                    <h6>Disclaimer</h6>
+                    <p class="footer-text" style="max-width: 100%;">
+                        This tool is for educational purposes only. Always consult qualified
+                        healthcare professionals for medical advice.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 MediPredict AI &mdash; All Rights Reserved</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js (confidence bar charts) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- App JS -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        // Dark Mode Toggle
+        (function(){
+            const saved = localStorage.getItem('theme');
+            if(saved) {
+                document.documentElement.setAttribute('data-bs-theme', saved);
+                const icon = document.getElementById('darkModeIcon');
+                if(icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        })();
+        document.getElementById('darkModeToggle')?.addEventListener('click', function(){
+            const html = document.documentElement;
+            const current = html.getAttribute('data-bs-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-bs-theme', next);
+            localStorage.setItem('theme', next);
+            document.getElementById('darkModeIcon').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+﻿=== Step 1: Kill python processes ===
+Done
+=== Step 2: Sleep 3s ===
+Done
+=== Step 3: Remaining python processes ===
+None
+=== Step 4: Remove train_ultimate.py ===
+Done
+=== Step 5: Test-Path ===
+False

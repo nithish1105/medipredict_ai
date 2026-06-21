@@ -1,0 +1,67 @@
+============================================================
+  FAST ACCURATE IMAGE DETECTION TRAINING
+============================================================
+
+Dataset: 16000 samples, 28 classes
+Train: 12800 | Test: 3200
+
+Training 2,638,876 parameters...
+------------------------------------------------------------
+Epoch   1: loss=2.6093 train=21.1% test=39.12%
+Epoch   2: loss=2.2375 train=26.1% test=45.66%
+Epoch   3: loss=2.0538 train=32.8% test=49.91%
+Epoch   4: loss=1.9151 train=32.6% test=51.34%
+Epoch   5: loss=1.8371 train=36.3% test=53.31%
+Epoch   6: loss=1.7349 train=42.9% test=55.97%
+Epoch   7: loss=1.6261 train=42.1% test=57.97%
+Epoch   8: loss=1.5809 train=41.8% test=58.75%
+Epoch   9: loss=1.5720 train=44.0% test=58.81%
+Epoch  10: loss=1.5709 train=46.2% test=59.84%
+Epoch  11: loss=1.5312 train=46.4% test=61.94%
+Epoch  12: loss=1.4605 train=46.1% test=62.34%
+Epoch  13: loss=1.3977 train=44.9% test=63.72%
+Epoch  15: loss=1.3428 train=43.3% test=63.78%
+Epoch  16: loss=1.3819 train=48.5% test=65.03%
+Epoch  19: loss=1.3115 train=53.4% test=65.47%
+Epoch  20: loss=1.3638 train=47.4% test=66.81%
+Epoch  22: loss=1.3129 train=52.9% test=67.50%
+Epoch  24: loss=1.3130 train=50.6% test=67.62%
+Epoch  26: loss=1.3361 train=42.6% test=68.62%
+Epoch  28: loss=1.1805 train=57.9% test=69.56%
+Epoch  30: loss=1.3117 train=50.2% test=67.47%
+Epoch  38: loss=1.1109 train=53.3% test=69.78%
+Epoch  39: loss=1.1325 train=52.0% test=69.81%
+Epoch  40: loss=1.1688 train=44.1% test=69.47%
+Epoch  41: loss=1.1148 train=44.0% test=70.06%
+Epoch  43: loss=1.2483 train=53.8% test=70.47%
+Epoch  47: loss=1.1286 train=55.4% test=71.19%
+Epoch  50: loss=1.1531 train=59.6% test=71.06%
+Epoch  52: loss=1.1547 train=56.5% test=71.53%
+Epoch  54: loss=1.1626 train=48.0% test=71.72%
+Epoch  56: loss=1.1306 train=49.7% test=72.00%
+Epoch  58: loss=1.1259 train=52.4% test=72.31%
+Epoch  60: loss=1.1561 train=51.9% test=72.00%
+Epoch  66: loss=1.0630 train=54.0% test=72.34%
+Epoch  67: loss=0.9602 train=49.6% test=72.38%
+Epoch  69: loss=1.0388 train=52.2% test=72.91%
+Epoch  70: loss=1.1837 train=55.2% test=72.44%
+Epoch  75: loss=1.1314 train=60.1% test=72.97%
+Epoch  79: loss=1.1078 train=53.7% test=73.12%
+Epoch  80: loss=1.1869 train=47.9% test=73.09%
+Epoch  81: loss=1.1479 train=52.3% test=73.25%
+Epoch  82: loss=1.1048 train=46.8% test=73.34%
+Epoch  86: loss=1.1155 train=47.7% test=73.50%
+Epoch  90: loss=1.0977 train=52.6% test=73.28%
+Epoch 100: loss=1.1364 train=46.0% test=72.84%
+Epoch 110: loss=1.1193 train=44.3% test=72.88%
+
+Early stopping at epoch 116
+
+============================================================
+  BEST TEST ACCURACY: 73.50%
+============================================================
+
+Saving model...
+Saved: image_classifier.pt, image_model.pkl, image_classes.pkl
+
+Total time: 2701s

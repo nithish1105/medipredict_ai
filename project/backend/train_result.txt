@@ -1,0 +1,34 @@
+[19:43:13] ======================================================================
+[19:43:13]   HIGH-ACCURACY IMAGE DETECTION TRAINER
+[19:43:13] ======================================================================
+[19:43:13] 
+Loading pretrained backbones...
+[19:43:13]   ✓ EfficientNet-B0 (1280)
+Downloading: "https://download.pytorch.org/models/resnet50-11ad3fa6.pth" to C:\Users\malas/.cache\torch\hub\checkpoints\resnet50-11ad3fa6.pth
+[19:43:42]   ✓ ResNet-50 (2048)
+Downloading: "https://download.pytorch.org/models/densenet121-a639ec97.pth" to C:\Users\malas/.cache\torch\hub\checkpoints\densenet121-a639ec97.pth
+[19:43:52]   ✓ DenseNet-121 (1024)
+Downloading: "https://download.pytorch.org/models/mobilenet_v3_large-5c1a4163.pth" to C:\Users\malas/.cache\torch\hub\checkpoints\mobilenet_v3_large-5c1a4163.pth
+[19:43:59]   ✓ MobileNet-V3 (960)
+[19:43:59] 
+  Total feature dimension: 5312
+[19:43:59] 
+======================================================================
+[19:43:59] CATALOGUING DATASETS
+[19:43:59] ======================================================================
+[19:43:59] 
+[1/4] Skin diseases: 23 classes, 19559 images
+[19:43:59] [2/4] Eye diseases: 4 classes, 4217 images
+[19:44:00] [3/4] HAM10000: 5 classes, 20030 images
+[19:44:00] [4/4] IMG_CLASSES: 8 classes, 27153 images
+[19:44:00] 
+Total unified classes: 28
+[19:44:00] Max samples per class (per source): 600
+[19:44:00] Augmentation factor: 5x
+[19:44:00] 
+======================================================================
+[19:44:00] EXTRACTING FEATURES
+[19:44:00] ======================================================================
+[19:44:00] 
+Processing Skin...
+[20:32:05]   [5/23] Processed: Cellulitis Impetigo and other Bacterial Infections

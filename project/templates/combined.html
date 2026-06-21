@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}Combined Analysis — MediPredict AI{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- Page Header -->
+                <div class="page-header-pro">
+                    <div class="page-icon-pro" style="background: var(--gradient-gold);">
+                        <i class="fas fa-layer-group" style="color: var(--primary-dark);"></i>
+                    </div>
+                    <h2 class="section-title">Combined Analysis</h2>
+                    <p class="text-muted mt-4">Upload an image and select symptoms for maximum diagnostic accuracy</p>
+                </div>
+
+                <div class="form-card-pro mb-4">
+                    <form id="combinedForm" enctype="multipart/form-data">
+
+                        <div class="row g-4">
+                            <!-- Left: Image Upload -->
+                            <div class="col-md-5">
+                                <label class="form-label-pro mb-3">
+                                    <i class="fas fa-x-ray"></i> Medical Image
+                                </label>
+                                <div class="upload-area" id="combDropZone" style="padding: 2rem;">
+                                    <div class="upload-icon" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                        <i class="fas fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <p class="mb-2" style="color: var(--text-body);">Drop image here</p>
+                                    <p class="text-muted small mb-3">or click to browse</p>
+                                    <input type="file" name="image" id="combImageInput" accept=".jpg,.jpeg,.png" class="d-none">
+                                    <button type="button" class="btn-elegant btn-navy" style="padding: 8px 18px; font-size: 0.9rem;"
+                                            onclick="document.getElementById('combImageInput').click()">
+                                        <i class="fas fa-folder-open"></i> Browse
+                                    </button>
+                                </div>
+                                <div id="combPreviewBox" class="text-center d-none mt-3">
+                                    <img id="combPreview" class="img-fluid rounded-3 shadow" style="max-height:180px; border: 3px solid var(--border-light);" alt="preview">
+                                    <p class="text-muted mt-2" style="font-size: 0.85rem;" id="combFileName"></p>
+                                </div>
+                            </div>
+
+                            <!-- Right: Symptoms -->
+                            <div class="col-md-7">
+                                <label class="form-label-pro mb-2">
+                                    <i class="fas fa-list-check"></i> Select Symptoms
+                                </label>
+                                <div class="input-group mb-2 search-symptom-box">
+                                    <span class="input-group-text bg-transparent border-end-0 text-muted" style="border-color: var(--border-color); padding: 0.4rem 0.60rem;">
+                                        <i class="fas fa-search" style="font-size: 0.85rem;"></i>
+                                    </span>
+                                    <input type="text" id="combSymptomSearch" class="form-control border-start-0" placeholder="Search symptoms..." style="border-color: var(--border-color); background-color: var(--bg-surface); color: var(--text-primary); font-size: 0.85rem; padding: 0.4rem 0.60rem; box-shadow: none;">
+                                </div>
+                                <div class="symptom-grid symptom-grid-sm mb-2">
+                                    {% for s in symptoms %}
+                                    <div class="form-check symptom-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="symptoms" value="{{ s }}" id="comb_{{ s }}">
+                                        <label class="form-check-label small" for="comb_{{ s }}">
+                                            {{ s | replace('_', ' ') | title }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-elegant btn-gold w-100 mt-4" id="combBtn">
+                            <i class="fas fa-wand-magic-sparkles"></i> Generate Combined Prediction
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Loading -->
+                <div id="combLoading" class="text-center d-none my-5">
+                    <div class="spinner-border" style="color: var(--accent-gold);" role="status"></div>
+                    <p class="loading-text">Combining analysis results...</p>
+                </div>
+
+                <!-- Result -->
+                <div id="combResult" class="d-none">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-square-poll-vertical" style="color: var(--accent-gold);"></i>
+                            <h5>Combined Analysis Results</h5>
+                        </div>
+
+                        <!-- Final combined prediction -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-4">
+                                <div class="stat-box gold">
+                                    <div class="stat-label">Final Diagnosis</div>
+                                    <div class="stat-value" id="combDisease">—</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="stat-box success">
+                                    <div class="stat-label">Confidence Level</div>
+                                    <div class="stat-value" id="combConfidence">—</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="stat-box primary">
+                                    <div class="stat-label">Analysis Method</div>
+                                    <div class="stat-value" style="font-size: 0.95rem;" id="combMethod">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-results -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="stat-box" style="text-align: left; padding: 1.25rem;">
+                                    <h6 style="color: var(--primary-navy); margin-bottom: 0.75rem;">
+                                        <i class="fas fa-stethoscope me-2"></i>Symptom Analysis
+                                    </h6>
+                                    <p class="mb-0" style="color: var(--text-body);" id="combSymRes">No symptoms selected.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-box" style="text-align: left; padding: 1.25rem;">
+                                    <h6 style="color: var(--medical-teal); margin-bottom: 0.75rem;">
+                                        <i class="fas fa-microscope me-2"></i>Image Analysis
+                                    </h6>
+                                    <p class="mb-0" style="color: var(--text-body);" id="combImgRes">No image uploaded.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accuracy chart -->
+                        <canvas id="combChart" height="140"></canvas>
+
+                        <!-- AI Cure Assistant Section -->
+                        <div id="combCureAssistantBox" class="d-none mt-4">
+                            <div class="cure-assistant-card">
+                                <div class="cure-assistant-header">
+                                    <i class="fas fa-robot"></i>
+                                    <h6>AI Cure Assistant</h6>
+                                </div>
+                                
+                                <!-- Cure Advice -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-lightbulb text-warning"></i> Treatment Advice
+                                    </h6>
+                                    <ul class="cure-advice-list" id="combCureAdvice"></ul>
+                                </div>
+                                
+                                <!-- Product Recommendations -->
+                                <div class="cure-section">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-shopping-cart text-primary"></i> Recommended Products
+                                    </h6>
+                                    <div class="product-grid" id="combProducts"></div>
+                                </div>
+                                
+                                <!-- When to See Doctor -->
+                                <div class="cure-section doctor-alert">
+                                    <h6 class="cure-section-title">
+                                        <i class="fas fa-user-doctor text-danger"></i> When to See a Doctor
+                                    </h6>
+                                    <p class="mb-0" id="combWhenToSeeDoctor"></p>
+                                </div>
+                                
+                                <!-- AI Disclaimer -->
+                                <div class="ai-disclaimer" id="combAiNote">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

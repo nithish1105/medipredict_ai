@@ -1,0 +1,11 @@
+﻿time: 2026-02-16T22:08:01.6854034+05:30
+script proc:
+
+ProcessId CommandLine                                                          
+--------- -----------                                                          
+    42300 "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoPro...
+
+
+
+status file exists:
+False
