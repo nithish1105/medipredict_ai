@@ -1,0 +1,16 @@
+# Core
+flask>=3.0
+flask-cors>=4.0
+gunicorn>=21.2
+
+# ML — Symptom model
+scikit-learn>=1.3
+pandas>=2.1
+numpy>=1.24
+
+# ML — Image model (CNN)
+tensorflow>=2.15
+Pillow>=10.1
+
+# Utilities
+werkzeug>=3.0

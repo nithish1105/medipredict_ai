@@ -33,6 +33,11 @@ flaskProcess.on('error', (error) => {
 
 flaskProcess.on('close', (code) => {
     console.log(`[MediPredict AI] Flask server process exited with code ${code}`);
+    if (code === 1) {
+        console.log(`\n💡 [MediPredict AI] [Tip] The server exited with code 1. This is usually caused by missing Python dependencies.`);
+        console.log(`💡 [MediPredict AI] [Tip] Please install the dependencies in your active Python/Conda environment by running:\n`);
+        console.log(`   pip install -r requirements.txt\n`);
+    }
     process.exit(code);
 });
 
